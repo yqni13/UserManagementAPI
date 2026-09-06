@@ -10,8 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// builder.Services.AddValidationExtension(); // Custom validator registration.
-// builder.Services.AddServiceExtension(); // Service registration.
+builder.Services.AddValidationExtension(); // Custom validator registration.
+builder.Services.AddServiceExtension(); // Service registration.
 
 var app = builder.Build();
 
