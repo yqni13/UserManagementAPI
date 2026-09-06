@@ -2,6 +2,7 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using UserManagementAPI.Contract.Requests.User;
 using UserManagementAPI.Contract.Responses.User;
+using UserManagementAPI.Interfaces.Services;
 
 namespace UserManagementAPI.Controllers;
 
@@ -9,39 +10,47 @@ namespace UserManagementAPI.Controllers;
 [Route("api/v1/users")]
 public class UserController : ControllerBase
 {
+    private IUserService _userService;
+    public UserController(IUserService userService)
+    {
+        _userService = userService;
+    }
 
     [HttpGet]
     [ProducesResponseType(typeof(List<UserSearchResponse>), (int)HttpStatusCode.OK)]
     public IActionResult GetAll()
     {
-        // return List<User>
+        return Ok(_userService.GetAllUsers());
     }
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(UserSearchResponse), (int)HttpStatusCode.OK)]
     public IActionResult GetById([FromRoute] UserByIdQuery query)
     {
-        // return User
+        int id = int.Parse(query.Id);
+        return Ok(_userService.GetUser(id));
     }
 
     [HttpPost]
     [ProducesResponseType(typeof(UserCreateResponse), (int)HttpStatusCode.OK)]
     public IActionResult Create([FromBody] UserCreateRequest request)
     {
-        // return User (response)
+        return Ok(_userService.CreateUser(request));
     }
 
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(UserUpdateResponse), (int)HttpStatusCode.OK)]
     public IActionResult Update([FromRoute] UserByIdQuery query, [FromBody] UserUpdateRequest request)
     {
-        // return string to confirm update
+        int id = int.Parse(query.Id);
+        return Ok(_userService.UpdateUser(id, request));
     }
 
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
     public IActionResult Delete([FromRoute] UserByIdQuery query)
     {
-        // return bool
+        int id = int.Parse(query.Id);
+        return Ok(_userService.DeleteUser(id));
     }
 }
