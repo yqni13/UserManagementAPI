@@ -2,7 +2,7 @@ using UserManagementAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// builder.Services.AddSecretsExtension(builder.Configuration); // Env secrets config registration.
+builder.Services.RegisterEnvSecrets(builder.Configuration);
 
 builder.Services.AddOpenApiExtension();
 
@@ -21,7 +21,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddlewareExtension(); // Custom middleware registration.
+app.RegisterMiddleware();
 
 app.MapControllers();
 

@@ -4,9 +4,10 @@ namespace UserManagementAPI.Extensions;
 
 public static class MiddlewareExtension
 {
-    public static IApplicationBuilder UseMiddlewareExtension(this IApplicationBuilder app)
+    public static IApplicationBuilder RegisterMiddleware(this IApplicationBuilder app)
     {
         app.UseErrorMiddleware();
+        app.UseAuthorizationMiddleware();
 
         return app;
     }
