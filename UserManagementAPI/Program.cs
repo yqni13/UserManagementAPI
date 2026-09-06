@@ -6,7 +6,7 @@ builder.Services.RegisterEnvSecrets(builder.Configuration);
 
 builder.Services.AddOpenApiExtension();
 
-// builder.Host.AddSerilogLogging(); // Logger configuration.
+builder.Host.AddSerilogLogging(); // Logger configuration.
 
 builder.Services.AddControllers();
 
