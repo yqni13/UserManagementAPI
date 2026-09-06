@@ -2,7 +2,10 @@ namespace UserManagementAPI.Contract.Responses.User;
 
 public record UserCreateResponse
 (
+    int UserId,
     string Name,
     string? Description,
-    string? Note
+    string? Note,
+    DateTime UpdatedAt,
+    DateTime CreatedAt
 );

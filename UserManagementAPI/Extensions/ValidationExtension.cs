@@ -6,7 +6,7 @@ namespace UserManagementAPI.Extensions;
 
 public static class ValidationExtension
 {
-    public static IServiceCollection AddValidationExtension(this IServiceCollection services)
+    public static IServiceCollection RegisterValidators(this IServiceCollection services)
     {
         // Surpressing ModelState check for type checks of query params.
         services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
