@@ -16,6 +16,21 @@ public class ErrorMiddleware
         try
         {
             await _next(context);
+
+            // [Copilot]: I used AI as debugging assistent to solve the problem on why I didn't catch an exception
+            // when a request didn't match the existing routes.
+
+            // Check if routing misses endpoint -> throw exception as .NET does NOT throw one itself in these cases.
+            if (!context.Response.HasStarted)
+            {
+                // Route does not exist entirely => not found.
+                if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+                    throw new RouteNotFoundException();
+
+                // Route does only exist for other http methods => not allowed.
+                if (context.Response.StatusCode == StatusCodes.Status405MethodNotAllowed)
+                    throw new MethodNotAllowedException();
+            }
         }
         catch (BaseException ex)
         {

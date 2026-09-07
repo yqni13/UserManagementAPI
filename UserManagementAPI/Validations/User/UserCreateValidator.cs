@@ -11,6 +11,7 @@ public class UserCreateValidator : AbstractValidator<UserCreateRequest>
     {
         RuleFor(x => x.Name)
             .Cascade(CascadeMode.Stop)
+            .NotNull().WithMessage(BaseExceptionMsg.REQUIRED)
             .NotEmpty().WithMessage(BaseExceptionMsg.REQUIRED)
             .MinimumLength(5).WithMessage("arg-invalid-min#name!5")
             .MaximumLength(50).WithMessage("arg-invalid-max#name!50");

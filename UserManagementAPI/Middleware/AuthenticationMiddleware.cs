@@ -4,12 +4,12 @@ using UserManagementAPI.Shared.Utilities.Exceptions;
 
 namespace UserManagementAPI.Middleware;
 
-// Lightweight authorization as it was described in last task as a simple token validation.
-public class AuthorizationMiddleware
+// Lightweight authentication as it was described in last task as a simple token validation.
+public class AuthenticationMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly EnvSecrets _secrets;
-    public AuthorizationMiddleware(RequestDelegate next, IOptions<EnvSecrets> secrets)
+    public AuthenticationMiddleware(RequestDelegate next, IOptions<EnvSecrets> secrets)
     {
         _next = next;
         _secrets = secrets.Value;
@@ -33,10 +33,10 @@ public class AuthorizationMiddleware
     }
 }
 
-public static class AuthorizationMiddlewareExtension
+public static class AuthenticationMiddlewareExtension
 {
-    public static IApplicationBuilder UseAuthorizationMiddleware(this IApplicationBuilder app)
+    public static IApplicationBuilder UseAuthenticationMiddleware(this IApplicationBuilder app)
     {
-        return app.UseMiddleware<AuthorizationMiddleware>();
+        return app.UseMiddleware<AuthenticationMiddleware>();
     }
 }

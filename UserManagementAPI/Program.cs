@@ -8,7 +8,10 @@ builder.Services.AddOpenApiExtension();
 
 builder.Host.AddSerilogLogging(); // Logger configuration.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+});
 
 builder.Services.RegisterValidators();
 builder.Services.RegisterServices();

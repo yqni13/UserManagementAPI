@@ -1,7 +1,7 @@
 # yqni13 | $\texttt{\color{violet}{UserManagementAPI}}$
 ### $\textsf{\color{brown}{v1.0.0}}$
 
-#### Coursera certificate ASP.NET Core project (user management api in .NET v10).
+### Coursera certificate [Microsoft Full-Stack Developer, Course 5: Back-End Development with .NET] ASP.NET Core project (user management api in .NET v10).
 
 <br>
 
@@ -19,7 +19,7 @@ Download or clone project
 git clone https://github.com/yqni13/UserManagementAPI.git
 ```
 
-Manually add Properties/launchSettings.json to config port and environment secrets.
+Manually add Properties/launchSettings.json to configurate port and environment secrets.
 See configs for local development/testing and add values for <port> and <token>:
 ```sh
 {
@@ -58,8 +58,44 @@ dotnet run
 
 <br>
 
-## 🧩 $\textsf{\color{salmon}Features}$
+## 🧩 $\textsf{\color{salmon}Features (Grading Criteria)}$
 
 | Feature | Description |
 |---------|-------------|
-| CRUD | Basic operations (Get all/single, Create, Update, Delete user)
+| 👩🏻‍💻 CRUD | Basic operations (Get all/single, Create, Update, Delete user) see [(UserController)](./UserManagementAPI/Controllers/UserController.cs)
+| 🤖 AI | Debugging and development assisting by Copilot [search "Copilot" keyword] |
+| 🔎 Validation | Using FluentValidation to check query params and body payloads, see [(Validator example)](./UserManagementAPI/Validations/User/UserCreateValidator.cs)
+| 🗒️ Logging | Write workflow into log file (method, path, status code), see [(LoggingMiddleware)](./UserManagementAPI/Middleware/LoggingMiddleware.cs)
+| 🗝️ Auth | Simple auth via Bearer-Token comparison from env secrets, see [(AuthenticationMiddleware)](./UserManagementAPI/Middleware/AuthenticationMiddleware.cs)
+
+<br>
+
+## 🗺️ $\textsf{\color{salmon}Swagger}$
+
+To test the API open Swagger (only by `dotnet watch run`) or see the DTO's for query params and body payloads [(Contract)](./UserManagementAPI/Contract/Requests/), if you prefer using with development tools like Postman, Insomnia, Bruno, ...
+<div align="center">
+    <img src="./res/swagger_screenshot.png" alt="&nbsp;Swagger Screenshot">
+    Figure 1 - Swagger CRUD operations API, v1.0.0
+</div>
+
+<br>
+
+## 🔧 $\textsf{\color{salmon}Testing}$
+
+Query params and body payloads are validated and throw exceptions with common and specific information. Every validation throws the `InvalidPropertiesException` on status code 400 and the common message "arg-invalid-properties" as well as the specific data. The common `message` and the data specific `msg` use my (as developer) specific format that is used in all my projects for translations. The validator value `NotNullValidator` reflects the FluentValidation rule in use. For more information, see [(Validators)](./UserManagementAPI/Validations/User/).
+<div align="center">
+    <img src="./res/testing_screenshot.png" alt="&nbsp;Logging Request Screenshot">
+    Figure 2 - Test API by Bruno, Request User Create, v1.0.0
+</div>
+
+<br>
+
+## 📝 $\textsf{\color{salmon}Logging}$
+
+The green marker shows the screenshot of a logging sequence of a processed request (`Request starting` to `Request finished`). The orange marker shows the `Http-Method POST` in use, using the yellow marked route. The next yellow marking points to the used function `Create() within the UserController` class. After processing the request, the following yellow marked information stands for the used `Response DTO 'UserCreateResponse'` that is deserialized (OkObjectResult).<br>
+The blue marking shows the summary of the demanded information (`method, path, status code`).
+
+<div align="center">
+    <img src="./res/logging_screenshot.png" alt="&nbsp;Logging Request Screenshot">
+    Figure 3 - Logging Sample, Request User Create, v1.0.0
+</div>

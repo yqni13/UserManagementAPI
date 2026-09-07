@@ -7,7 +7,7 @@ public class AuthException : BaseException
         string message = "arg-auth-exception",
         string error = "AuthException",
         int statusCode = StatusCodes.Status401Unauthorized
-    ) : base(message, error, statusCode) { }
+    ) : base(message, error, statusCode) {}
 }
 
 public class AuthenticationException : AuthException

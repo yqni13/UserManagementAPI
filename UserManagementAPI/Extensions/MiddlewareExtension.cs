@@ -7,7 +7,7 @@ public static class MiddlewareExtension
     public static IApplicationBuilder RegisterMiddleware(this IApplicationBuilder app)
     {
         app.UseErrorMiddleware();
-        app.UseAuthorizationMiddleware();
+        app.UseAuthenticationMiddleware();
         app.UseRequestLoggingMiddleware();
 
         return app;

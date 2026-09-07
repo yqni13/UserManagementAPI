@@ -48,8 +48,9 @@ public class UserService : IUserService
         return UserMapper.ToCreateResponse(user);
     }
 
+    // [Copilot]: I used AI to refactor my code and got the explanation for how referenced types work.
+
     // FirstOrDefault returns REFERENCE of object in heap => user.Name = request.Name modifies referenced obj value.
-    // I used Copilot to refactor my code and got the explanation for how to use referenced types to work.
     public UserUpdateResponse UpdateUser(int id, UserUpdateRequest request)
     {
         User? user = InternDB.USERS.FirstOrDefault(user => user.UserId == id);

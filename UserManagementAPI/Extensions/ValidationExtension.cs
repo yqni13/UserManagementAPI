@@ -9,7 +9,10 @@ public static class ValidationExtension
     public static IServiceCollection RegisterValidators(this IServiceCollection services)
     {
         // Surpressing ModelState check for type checks of query params.
-        services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
+        services.Configure<ApiBehaviorOptions>(options => 
+        {
+            options.SuppressModelStateInvalidFilter = true;
+        });
 
         // Registration of all validation files with Program.cs as marker.
         services.AddValidatorsFromAssemblyContaining<Program>();
