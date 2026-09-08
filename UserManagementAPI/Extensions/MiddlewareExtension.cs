@@ -8,6 +8,7 @@ public static class MiddlewareExtension
     {
         app.UseErrorMiddleware();
         app.UseAuthenticationMiddleware();
+        app.UseValidationMiddleware();
         app.UseRequestLoggingMiddleware();
 
         return app;

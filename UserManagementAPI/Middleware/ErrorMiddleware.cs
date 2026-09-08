@@ -42,6 +42,15 @@ public class ErrorMiddleware
                 status = ex.StatusCode
             });
         }
+        catch (ValidationException ex)
+        {
+            var err = ex.ValidData.Headers;
+            context.Response.StatusCode = ex.ValidData.Headers.Status;
+            await context.Response.WriteAsJsonAsync(new
+            {
+                headers = ex.ValidData.Headers
+            });
+        }
         catch (Exception ex)
         {
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;

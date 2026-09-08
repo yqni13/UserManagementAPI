@@ -1,5 +1,6 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using UserManagementAPI.Attributes;
 using UserManagementAPI.Contract.Requests.User;
 using UserManagementAPI.Contract.Responses.User;
 using UserManagementAPI.Interfaces.Services;
@@ -32,6 +33,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
+    [RequestValidation]
     [ProducesResponseType(typeof(UserCreateResponse), (int)HttpStatusCode.OK)]
     public IActionResult Create([FromBody] UserCreateRequest request)
     {
@@ -39,6 +41,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [RequestValidation]
     [ProducesResponseType(typeof(UserUpdateResponse), (int)HttpStatusCode.OK)]
     public IActionResult Update([FromRoute] UserByIdQuery query, [FromBody] UserUpdateRequest request)
     {
