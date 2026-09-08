@@ -1,3 +1,5 @@
+using UserManagementAPI.Shared.Utilities.Structs;
+
 namespace UserManagementAPI.Shared.Utilities.Exceptions;
 
 public class AuthException : BaseException
@@ -15,7 +17,7 @@ public class AuthenticationException : AuthException
     public AuthenticationException
     (
         string message = "arg-invalid-authentication",
-        string error = "AuthenticationException"
+        string error = ExceptionName.AUTHENTICATION
     ) : base(message, error) {}
 }
 
@@ -24,7 +26,7 @@ public class AuthorizationException : AuthException
     public AuthorizationException
     (
         string message = "arg-invalid-authorization",
-        string error = "AuthorizationException"
+        string error = ExceptionName.AUTHORIZATION
     ) : base(message, error) {}
 }
 
@@ -33,7 +35,7 @@ public class MissingAuthTokenException : AuthException
     public MissingAuthTokenException
     (
         string message = "arg-missing-authtoken",
-        string error = "MissingAuthTokenException"
+        string error = ExceptionName.MISSINGAUTHTOKEN
     ) : base(message, error) {}
 }
 
@@ -42,6 +44,6 @@ public class InvalidAuthTokenException : AuthException
     public InvalidAuthTokenException
     (
         string message = "arg-invalid-authtoken",
-        string error = "InvalidAuthTokenException"
+        string error = ExceptionName.INVALIDAUTHTOKEN
     ) : base(message, error) {}
 }

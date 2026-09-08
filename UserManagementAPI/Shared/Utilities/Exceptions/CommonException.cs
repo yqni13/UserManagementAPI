@@ -1,3 +1,5 @@
+using UserManagementAPI.Shared.Utilities.Structs;
+
 namespace UserManagementAPI.Shared.Utilities.Exceptions;
 
 public class CommonException : BaseException
@@ -15,7 +17,7 @@ public class NotFoundException : CommonException
     public NotFoundException
     (
         string message ="arg-invalid-notfound",
-        string error = "NotFoundException",
+        string error = ExceptionName.NOTFOUND,
         int statusCode = StatusCodes.Status404NotFound
     ) : base(message, error, statusCode) {}
 }
@@ -25,7 +27,7 @@ public class ConflictException : CommonException
     public ConflictException
     (
         string message = "arg-invalid-conflict",
-        string error = "ConflictException",
+        string error = ExceptionName.CONFLICT,
         int statusCode = StatusCodes.Status409Conflict
     ) : base(message, error, statusCode) {}
 }
@@ -35,6 +37,6 @@ public class InternalServerException : CommonException
     public InternalServerException
     (
         string message = "arg-invalid-internalserver",
-        string error = "InternalServerException"
+        string error = ExceptionName.INTERNALSERVER
     ) : base(message, error) {}
 }
