@@ -62,8 +62,8 @@ dotnet run
 
 | Feature | Description |
 |---------|-------------|
-| 👩🏻‍💻 CRUD | Basic operations (Get all/single, Create, Update, Delete user) see [(UserController)](./UserManagementAPI/Controllers/UserController.cs)
-| 🤖 AI | Debugging and development assisting by Copilot [search "Copilot" keyword] |
+| 🛠️ CRUD | Basic operations (Get all/single, Create, Update, Delete user) see [(UserController)](./UserManagementAPI/Controllers/UserController.cs)
+| 🤖 AI | Debugging and development assisting by Copilot => search [Copilot] marker |
 | 🔎 Validation | Using FluentValidation to check query params and body payloads, see [(Validator example)](./UserManagementAPI/Validations/User/UserCreateValidator.cs)
 | 🗒️ Logging | Write workflow into log file (method, path, status code), see [(LoggingMiddleware)](./UserManagementAPI/Middleware/LoggingMiddleware.cs)
 | 🗝️ Auth | Simple auth via Bearer-Token comparison from env secrets, see [(AuthenticationMiddleware)](./UserManagementAPI/Middleware/AuthenticationMiddleware.cs)
@@ -72,7 +72,8 @@ dotnet run
 
 ## 🗺️ $\textsf{\color{salmon}Swagger}$
 
-To test the API open Swagger (only by `dotnet watch run`) or see the DTO's for query params and body payloads [(Contract)](./UserManagementAPI/Contract/Requests/), if you prefer using with development tools like Postman, Insomnia, Bruno, ...
+To test the API open Swagger (only by `dotnet watch run`) or see the DTO's for query params and body payloads [(Contract)](./UserManagementAPI/Contract/Requests/), if you prefer using with development tools like Postman, Insomnia, Bruno, ...<br>
+For authentication each request requires a `Bearer Token` that fits the set up env secret [AUTH_TOKEN].
 <div align="center">
     <img src="./res/swagger_screenshot.png" alt="&nbsp;Swagger Screenshot">
     Figure 1 - Swagger CRUD operations API, v1.0.0
@@ -82,11 +83,21 @@ To test the API open Swagger (only by `dotnet watch run`) or see the DTO's for q
 
 ## 🔧 $\textsf{\color{salmon}Testing}$
 
-Query params and body payloads are validated and throw exceptions with common and specific information. Every validation throws the `InvalidPropertiesException` on status code 400 and the common message "arg-invalid-properties" as well as the specific data. The common `message` and the data specific `msg` use my (as developer) specific format that is used in all my projects for translations. The validator value `NotNullValidator` reflects the FluentValidation rule in use. For more information, see [(Validators)](./UserManagementAPI/Validations/User/).
+Query params and body payloads are validated and throw exceptions with common and specific information. Validations throw either `InvalidPropertiesException` or `EmptyPayloadException` for invalid cases on status code 400 and the common message "arg-invalid-properties" as well as the specific data. The common `message` and the data specific `msg` use my (as developer) selected format compatible to translations used in my projects. The validator value `NotNullValidator` reflects the FluentValidation rule in use. For more information, see [(Validators)](./UserManagementAPI/Validations/User/).
 <div align="center">
     <img src="./res/testing_screenshot.png" alt="&nbsp;Logging Request Screenshot">
     Figure 2 - Test API by Bruno, Request User Create, v1.0.0
 </div>
+
+<br>
+
+Payloads can be tested on different scenarios:
+| Scenario | Location | Mechanism |
+|----------|----------|-----------|
+| Missing payload | ValidationMiddleware | Custom check |
+| Empty payload | ValidationMiddleware | Custom check |
+| Wrong property types | ValidationFilter | ModelBinding |
+| Wrong property values | ValidationFilter | RuleSets |
 
 <br>
 
