@@ -53,7 +53,7 @@ dotnet build
 
 ... before you run the application and wait for SwaggerUI to open in your browser.
 ```sh
-dotnet run
+dotnet watch run
 ```
 
 <br>

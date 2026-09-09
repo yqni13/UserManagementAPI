@@ -1,6 +1,5 @@
 using UserManagementAPI.Contract.Requests.User;
 using UserManagementAPI.Contract.Responses.User;
-using UserManagementAPI.Entities;
 
 namespace UserManagementAPI.Interfaces.Services;
 
@@ -10,5 +9,5 @@ public interface IUserService
     List<UserSearchResponse> GetAllUsers();
     UserCreateResponse CreateUser(UserCreateRequest request);
     UserUpdateResponse UpdateUser(int id, UserUpdateRequest request);
-    bool DeleteUser(int id);
+    void DeleteUser(int id);
 }

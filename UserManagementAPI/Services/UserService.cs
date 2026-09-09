@@ -67,13 +67,13 @@ public class UserService : IUserService
         return UserMapper.ToUpdateResponse(user);
     }
 
-    public bool DeleteUser(int id)
+    public void DeleteUser(int id)
     {
         int index = InternDB.USERS.FindIndex(user => user.UserId == id);
         if (index < 0)
             throw new NotFoundException($"User with ID ({id}) not found.");
 
         InternDB.USERS.RemoveAt(index);
-        return true;
+        return;
     }
 }

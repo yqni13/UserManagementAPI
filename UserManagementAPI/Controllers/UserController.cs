@@ -34,10 +34,10 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [RequestValidation]
-    [ProducesResponseType(typeof(UserCreateResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(UserCreateResponse), (int)HttpStatusCode.Created)]
     public IActionResult Create([FromBody] UserCreateRequest request)
     {
-        return Ok(_userService.CreateUser(request));
+        return CreatedAtAction(nameof(Create), _userService.CreateUser(request));
     }
 
     [HttpPut("{id}")]
@@ -50,10 +50,12 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public IActionResult Delete([FromRoute] UserByIdQuery query)
     {
         int id = int.Parse(query.Id);
-        return Ok(_userService.DeleteUser(id));
+        _userService.DeleteUser(id);
+
+        return NoContent();
     }
 }
